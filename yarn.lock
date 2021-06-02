@@ -1706,10 +1706,19 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@^16", "@types/react@^16.9.0":
+"@types/react@^16":
   version "16.14.7"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.14.7.tgz#b62bd8cc4675d6fe3976126cdd208deda267f1fb"
   integrity sha512-JhbikeQ1i18ut9Sro3j/xvhN073zJA9sqGqbwJByhOfLPXxEJdqjal9piZd9tmVEC+LP6RN2dLvWx9Hbr0reTw==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/react@^17.0.7":
+  version "17.0.7"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.7.tgz#5f2ca73d8baee8c286e96c95df557799ac0d1996"
+  integrity sha512-lBc3fY20hRFQ/pXQT2XdtmpJeXZnRH8N+WPnEzEfPTzuKmaJTA7k/xGWHBaPvKceKpbf0ZnMlLWY/0sFZ5rfkw==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -5383,6 +5392,11 @@ https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
+
+i@^0.3.6:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/i/-/i-0.3.6.tgz#d96c92732076f072711b6b10fd7d4f65ad8ee23d"
+  integrity sha1-2WyScyB28HJxG2sQ/X1PZa2O4j0=
 
 iconv-lite@0.4.24, iconv-lite@^0.4.24:
   version "0.4.24"

@@ -1,32 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import {Todolist} from './components/todolist/Todolist';
+import { Todolist } from './components/todolist/Todolist';
 
-export type TasksType = {
-    id:number,
-    isDone: boolean,
-    title: string
-}
-export type TodolistPropsType={
-    title:string,
-    task:Array<TasksType>
-}
+export type ValueType = 'ALL'|'Active'|'Completed'
 
 function App() {
-    let task1:Array<TasksType> = [
-        {id:1, isDone: true, title: 'HTML&CSS'},
-        {id:2, isDone: true, title: 'JS'},
-        {id:3, isDone: false, title: 'React'}
-    ];
-    let task2:Array<TasksType> = [
-        {id:1, isDone: true, title: 'Milk'},
-        {id:2, isDone: true, title: 'Water'},
-        {id:3, isDone: false, title: 'Meat'}
-    ];
+
+    /*let tasks1 = [
+        { id: 1, title: "HTML&CSS", isDone: true },
+        { id: 2, title: "JS", isDone: true },
+        { id: 3, title: "ReactJS", isDone: false },
+        { id: 4, title: "JS", isDone: true },
+        { id: 5, title: "ReactJS", isDone: false }
+
+    ]*/
+    let [tasks1,setTasks1]= useState( [
+        { id: 1, title: "HTML&CSS", isDone: true },
+        { id: 2, title: "JS", isDone: true },
+        { id: 3, title: "ReactJS", isDone: false },
+        { id: 4, title: "JS", isDone: true },
+        { id: 5, title: "ReactJS", isDone: false }
+    ]);
+
+    const removeTasks= (id:number) =>{
+        tasks1= tasks1.filter(f=>f.id!==id)
+        setTasks1(tasks1)
+        console.log(tasks1)
+
+    }
+    const changeFilter= (value:ValueType) =>{
+
+        console.log(value)
+    }
+
     return (
         <div className="App">
-            <Todolist title={'What to Learn?'} task={task1} />
-            <Todolist title={'What to buy?'} task={task2}/>
+            <Todolist
+                title="What to learn"
+                tasks={tasks1}
+                removeTasks={removeTasks}
+                changeFilter={changeFilter}
+            />
 
         </div>
     );
