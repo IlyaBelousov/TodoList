@@ -1,5 +1,5 @@
 import React from 'react';
-import { ValueType } from '../../App';
+import {keyType} from '../../App';
 
 type TaskType = {
     id: number
@@ -11,8 +11,7 @@ type PropsType = {
     title: string
     tasks: Array<TaskType>
     removeTasks: (id:number)=> void
-
-    changeFilter: (value:ValueType)=>void
+    changeFilter: (key:keyType)=>void
 }
 
 export function Todolist(props: PropsType) {
