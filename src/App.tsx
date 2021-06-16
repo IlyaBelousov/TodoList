@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { v1 } from 'uuid';
+import {v1} from 'uuid';
 import './App.css';
 import { Todolist } from './components/todolist/Todolist';
 
@@ -16,8 +16,9 @@ function App() {
     ]);
     const addTask=(newTitle:string)=>{
 
-        let newTask= { id: v1(), title: newTitle, isDone: false }
-        setTasks1([newTask,...tasks1]);
+            let newTask= { id: v1(), title: newTitle, isDone: false }
+            setTasks1([newTask,...tasks1]);
+
     }
 
     let [filter,setFilter]= useState<keyType>('ALL')
@@ -41,6 +42,14 @@ function App() {
         copyTasks1= tasks1.filter(f=>f.isDone===true)
     }
 
+    const ChangeStatusTask=(id:string,isDone:boolean)=>{
+        let currentTask= tasks1.find(task=>task.id===id);
+        if(currentTask){
+            currentTask.isDone=isDone;
+            setTasks1([...tasks1])
+        }
+    }
+
     return (
         <div className="App">
             <Todolist
@@ -49,6 +58,8 @@ function App() {
                 addTask={addTask}
                 removeTasks={removeTasks}
                 changeFilter={changeFilter}
+                ChangeStatusTask={ChangeStatusTask}
+                filter={filter}
             />
 
         </div>

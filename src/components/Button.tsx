@@ -1,16 +1,16 @@
 import React from 'react';
+import {keyType} from '../App';
 
 type PropsType={
-    callBack:()=>void
-    value: string
+    changeFilter:(key: keyType)=>void
+    value:keyType
+    filter:keyType
 }
 const Button = (props:PropsType) => {
-    const onClickHandler=()=>{
-        props.callBack()
-    }
+
     return (
 
-            <button onClick={onClickHandler}>{props.value}</button>
+        <button className={props.filter===props.value?'activeFilter':''} onClick={()=> props.changeFilter(props.value)}>{props.value}</button>
 
     );
 };

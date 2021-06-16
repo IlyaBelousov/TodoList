@@ -6,3 +6,22 @@
 .App > div {
   margin-right: 50px;
 }
+.inputClass{
+  outline: none;
+}
+.inputClass:focus,.inputClass:active{
+  outline: none !important;
+
+}
+.error{
+  border: 1px red solid;
+}
+.errorMessage{
+  color: red;
+}
+.activeFilter{
+  background-color: aquamarine;
+}
+.isActive{
+  opacity: .5;
+}
