@@ -1,27 +1,122 @@
 .App {
-  padding: 30px;
-  display: flex;
+    padding: 30px;
+    display: flex;
 }
 
 .App > div {
-  margin-right: 50px;
+    margin-right: 50px;
 }
-.inputClass{
-  outline: none;
+
+.inputClass {
+    outline: none;
 }
-.inputClass:focus,.inputClass:active{
-  outline: none !important;
+
+input{
+    outline: 0;
+}
+
+
+.error {
+    border: 1px red solid;
+}
+
+.errorMessage {
+    color: red;
+}
+
+.activeFilter {
+    background-color: aquamarine;
+}
+
+.isActive {
+    opacity: .5;
+}
+/*
+
+.wrapper {
+    width: 400px;
+    height: 300px;
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    justify-content: space-around;
+    align-items: center;
+    border: 5px solid #21e788;
+    border-radius: 15px;
+    background-color: rgb(9, 8, 8);
+}
+
+
+.inner {
+    width: 280px;
+    height: 200px;
+    position: absolute;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    align-content: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    border: 5px solid #21e788;
+    border-radius: 15px;
+    background-color: rgb(9, 8, 8);
+}
+
+.counter {
+    width: 250px;
+    height: 100px;
+    padding-top: 10px;
+    background-color: #21e788;
+    border: 5px solid #21e788;
+    border-radius: 15px;
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 50px;
+}
+.limit{
+    width: 250px;
+    height: 100px;
+    padding-top: 10px;
+    background-color: #21e788;
+    border: 5px solid #21e788;
+    border-radius: 15px;
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 50px;
+    color: red;
 
 }
-.error{
-  border: 1px red solid;
+
+.buttons {
+    display: flex;
+    width: 250px;
+    margin-top: 50px;
+    justify-content: space-around;
+
 }
-.errorMessage{
-  color: red;
+
+.increment {
+    width: 65px;
+    color: black;
+    border: 5px solid #21e788;
+    border-radius: 15px;
+    background-color: #21e788;
+    font-weight: bold;
 }
-.activeFilter{
-  background-color: aquamarine;
+
+.reset {
+    width: 65px;
+    color: black;
+    border: 5px solid #21e788;
+    border-radius: 15px;
+    background-color: #21e788;
+    font-weight: bold;
 }
-.isActive{
-  opacity: .5;
-}
+.disable{
+    color: black;
+    background-color: rgba(33, 231, 136, 0.39);
+    border-radius: 15px;
+    width: 65px;
+}*/

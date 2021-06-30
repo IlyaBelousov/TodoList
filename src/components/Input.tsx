@@ -28,6 +28,7 @@ const Input = (props: inputType) => {
     };
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
+            setError(null);
             onClickHandler();
         }
     };
