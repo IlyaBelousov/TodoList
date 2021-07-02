@@ -3,18 +3,15 @@ import React, {KeyboardEvent, ChangeEvent, useState} from 'react';
 type inputType = {
     callBack: (newTitle: string) => void
 }
-const Input = (props: inputType) => {
+export const AddItemForm = (props: inputType) => {
     let [title, setTitle] = useState('');
     let [error, setError] = useState<null | string>(null);
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setError(null);
         setTitle(event.currentTarget.value);
-
-
     };
-    const onClickHandler = () => {
-
+    const AddItem = () => {
         const trimmedTitle = title.trim();
         if (trimmedTitle) {
             props.callBack(trimmedTitle);
@@ -29,7 +26,7 @@ const Input = (props: inputType) => {
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             setError(null);
-            onClickHandler();
+            AddItem();
         }
     };
     return (
@@ -41,10 +38,8 @@ const Input = (props: inputType) => {
                 onChange={onChangeHandler}
                 onKeyPress={onKeyPressHandler}
             />
-            <button onClick={onClickHandler}>+</button>
+            <button onClick={AddItem}>+</button>
             {error && <div className={'errorMessage'}>{error}</div>}
         </div>
     );
 };
-
-export default Input;

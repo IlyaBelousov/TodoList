@@ -1,3 +1,7 @@
+.todoListContainer{
+    margin-right: 50px;
+}
+
 .App {
     padding: 30px;
     display: flex;
@@ -6,6 +10,7 @@
 .App > div {
     margin-right: 50px;
 }
+
 
 .inputClass {
     outline: none;
@@ -25,7 +30,7 @@ input{
 }
 
 .activeFilter {
-    background-color: aquamarine;
+    background-color: #1269c6;
 }
 
 .isActive {
