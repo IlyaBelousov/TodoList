@@ -16,4 +16,3 @@ const Button = (props:PropsType) => {
     );
 };
 
-export default Button;

@@ -1,3 +1,5 @@
+import {IconButton, TextField} from '@material-ui/core';
+import {AddBox} from '@material-ui/icons';
 import React, {KeyboardEvent, ChangeEvent, useState} from 'react';
 
 type inputType = {
@@ -5,10 +7,10 @@ type inputType = {
 }
 export const AddItemForm = (props: inputType) => {
     let [title, setTitle] = useState('');
-    let [error, setError] = useState<null | string>(null);
+    let [error, setError] = useState<boolean>(false);
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setError(null);
+        setError(false);
         setTitle(event.currentTarget.value);
     };
     const AddItem = () => {
@@ -18,28 +20,47 @@ export const AddItemForm = (props: inputType) => {
 
             setTitle('');
         } else {
-            setError('Title is required');
+            setError(true);
         }
 
 
     };
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            setError(null);
+            setError(false);
             AddItem();
         }
     };
+    const offMode = () => {
+        setError(false);
+    };
     return (
         <div>
-            <input
-
+            <TextField
+                onBlur={offMode}
+                variant={'outlined'}
+                size={'small'}
+                value={title}
+                onChange={onChangeHandler}
+                onKeyPress={onKeyPressHandler}
+                label={'Title'}
+                error={error}
+                helperText={error && 'Title is reqired'}
+            />
+            {/*<input
                 className={error ? 'error' : 'inputClass'}
                 value={title}
                 onChange={onChangeHandler}
                 onKeyPress={onKeyPressHandler}
-            />
-            <button onClick={AddItem}>+</button>
-            {error && <div className={'errorMessage'}>{error}</div>}
+            />*/}
+            <IconButton
+                onBlur={offMode}
+                color={'primary'}
+                onClick={AddItem}>
+                <AddBox/>
+            </IconButton>
+
+            {/*{error && <div className={'errorMessage'}>{error}</div>}*/}
         </div>
     );
 };
