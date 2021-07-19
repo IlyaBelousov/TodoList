@@ -3,7 +3,7 @@ type StateType = {
     childrenCount: number
     name: string
 }
-type ActionType = {
+export type ActionType = {
     type: string
     [key: string]: any
 }
@@ -19,6 +19,12 @@ export const userReducer = (state: StateType, action: ActionType) => {
             return {
                 ...state,
                 childrenCount: state.childrenCount + 1
+            };
+        case 'CHANGE-NAME':
+
+            return {
+                ...state,
+                name: action.name
             };
         default:
             throw new Error('I don\'t understand this type');
