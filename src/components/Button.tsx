@@ -1,10 +1,10 @@
 import React from 'react';
-import {keyType} from '../App';
+import {filterValuesType} from '../App';
 
 type PropsType={
-    changeFilter:(key: keyType, todolistId:string)=>void
-    value:keyType
-    filter:keyType
+    changeFilter:(key: filterValuesType, todolistId:string)=>void
+    value:filterValuesType
+    filter:filterValuesType
     id:string
 }
 const Button = (props:PropsType) => {

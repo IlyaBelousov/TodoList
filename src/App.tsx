@@ -1,17 +1,20 @@
 import React, {useState} from 'react';
 import {v1} from 'uuid';
 import './App.css';
-import {Todolist} from './components/todolist/Todolist';
+import {TaskType, Todolist} from './components/todolist/Todolist';
 import {AddItemForm} from './components/AddItemForm';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core';
 import {Menu} from '@material-ui/icons';
 
 
-export type keyType = 'ALL' | 'Active' | 'Completed'
+export type filterValuesType = 'ALL' | 'Active' | 'Completed'
 export type TodoListType = {
     id: string
     title: string
-    filter: keyType
+    filter: filterValuesType
+}
+export type TasksStateType ={
+    [key:string]:Array<TaskType>
 }
 
 function App() {
@@ -33,7 +36,7 @@ function App() {
     ]);
 
 
-    let [allTasks, setAllTasks] = useState({
+    let [allTasks, setAllTasks] = useState<TasksStateType>({
         [todoListID_1]: [
             {id: v1(), title: 'HTML&CSS', isDone: true},
             {id: v1(), title: 'JS', isDone: true},
@@ -69,10 +72,10 @@ function App() {
 
 
     };
-    const changeFilter = (key: keyType, todolistId: string) => {
+    const changeFilter = (filterValue: filterValuesType, todolistId: string) => {
         let todolist = todoLists.find(tl => tl.id === todolistId);
         if (todolist) {
-            todolist.filter = key;
+            todolist.filter = filterValue;
             setTodoLists([...todoLists]);
         }
 
