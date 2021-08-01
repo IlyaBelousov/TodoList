@@ -2,7 +2,7 @@ import React, {ChangeEvent} from 'react';
 import {filterValuesType} from '../../App';
 import {AddItemForm} from '../AddItemForm';
 import {EditableSpan} from '../EditableSpan';
-import {Button, Checkbox, IconButton} from '@material-ui/core';
+import {Button, Checkbox, IconButton, List, ListItem} from '@material-ui/core';
 import {Delete} from '@material-ui/icons';
 
 
@@ -46,11 +46,11 @@ export function Todolist(props: PropsType) {
     return <div className="todoListContainer">
         <h3><EditableSpan ChangeTitle={ChangeTodolistTitle} title={props.title}/>
             <IconButton onClick={RemoveTodoList}>
-                <Delete/>
+                <Delete style={{fontSize:25,margin:10}}/>
             </IconButton>
         </h3>
         <AddItemForm callBack={(newTitle: string) => props.addTask(newTitle, props.id)}/>
-        <ul style={{listStyle:'none',padding:'0px'}}>
+        <List>
             {
                 props.tasks.map((m) => {
                     const removeTaskHandler = () => {
@@ -64,7 +64,9 @@ export function Todolist(props: PropsType) {
                     };
 
                     return (
-                        <li  key={m.id}>
+                        <ListItem
+
+                            key={m.id}>
                             <span className={m.isDone ? 'isActive' : ''}>
                                 <Checkbox
                                     size={'small'}
@@ -74,17 +76,16 @@ export function Todolist(props: PropsType) {
                                 <EditableSpan ChangeTitle={ChangeTitleHandler} title={m.title}/>
                             </span>
                             <IconButton
-
                                     color={'secondary'}
                                     onClick={removeTaskHandler}>
-                                    <Delete />
+                                    <Delete style={{fontSize:20,margin:10}}/>
                             </IconButton>
 
-                        </li>);
+                        </ListItem>);
                 })
             }
 
-        </ul>
+        </List>
         <div>
 
             <Button

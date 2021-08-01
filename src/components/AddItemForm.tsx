@@ -14,7 +14,6 @@ export const AddItemForm = (props: inputType) => {
         setTitle(event.currentTarget.value);
     };
     const AddItem = () => {
-        debugger
         const trimmedTitle = title.trim();
         if (trimmedTitle) {
             props.callBack(trimmedTitle);
@@ -22,8 +21,6 @@ export const AddItemForm = (props: inputType) => {
         } else {
             setError(true);
         }
-
-
     };
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
@@ -37,9 +34,9 @@ export const AddItemForm = (props: inputType) => {
     return (
         <div>
             <TextField
+                size={'small'}
                 onBlur={offMode}
                 variant={'outlined'}
-                size={'small'}
                 value={title}
                 onChange={onChangeHandler}
                 onKeyPress={onKeyPressHandler}
@@ -47,20 +44,12 @@ export const AddItemForm = (props: inputType) => {
                 error={error}
                 helperText={error && 'Title is reqired'}
             />
-            {/*<input
-                className={error ? 'error' : 'inputClass'}
-                value={title}
-                onChange={onChangeHandler}
-                onKeyPress={onKeyPressHandler}
-            />*/}
             <IconButton
                 onBlur={offMode}
                 color={'primary'}
                 onClick={AddItem}>
                 <AddBox/>
             </IconButton>
-
-            {/*{error && <div className={'errorMessage'}>{error}</div>}*/}
         </div>
     );
 };
