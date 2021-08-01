@@ -14,10 +14,10 @@ export const AddItemForm = (props: inputType) => {
         setTitle(event.currentTarget.value);
     };
     const AddItem = () => {
+        debugger
         const trimmedTitle = title.trim();
         if (trimmedTitle) {
             props.callBack(trimmedTitle);
-
             setTitle('');
         } else {
             setError(true);
