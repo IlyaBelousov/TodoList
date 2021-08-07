@@ -1,11 +1,10 @@
-import {TasksStateType} from '../App';
+import {TasksStateType} from '../AppWithRedux';
 import {v1} from 'uuid';
 import {TaskType} from '../components/todolist/Todolist';
 import {
     AddTodolistActionType,
     RemoveTodolistActionType,
-    todoListID_1,
-    todoListID_2
+
 } from './todolist-reducer';
 
 export type RemoveTaskActionType = {
@@ -40,22 +39,7 @@ export type ActionsType =
     | ChangeTaskTitleActionType
     | AddTodolistActionType
     | RemoveTodolistActionType
-const InitialState: TasksStateType = {
-    [todoListID_1]: [
-        {id: v1(), title: 'HTML&CSS', isDone: true},
-        {id: v1(), title: 'JS', isDone: true},
-        {id: v1(), title: 'ReactJS', isDone: false},
-        {id: v1(), title: 'CSS', isDone: true},
-        {id: v1(), title: 'Redux', isDone: false}
-    ],
-    [todoListID_2]: [
-        {id: v1(), title: 'Water', isDone: true},
-        {id: v1(), title: 'Bread', isDone: true},
-        {id: v1(), title: 'Beer', isDone: false},
-        {id: v1(), title: 'Milk', isDone: true},
-        {id: v1(), title: 'Book', isDone: false}
-    ]
-};
+const InitialState: TasksStateType = {};
 
 
 export const tasksReducer = (state: TasksStateType = InitialState, action: ActionsType): TasksStateType => {
@@ -72,13 +56,12 @@ export const tasksReducer = (state: TasksStateType = InitialState, action: Actio
 
         }
         case 'CHANGE-TASK-STATUS': {
-            return {
-                ...state, [action.todolistID]: [...state[action.todolistID].map(t => {
-                    if (t.id === action.taskID) {
-                        return {...t, isDone: action.isDone};
-                    }
-                    return t;
-                })]
+            return  {
+                ...state,
+                [action.todolistID]: [...state[action.todolistID].map(t => t.id === action.taskID ? {
+                    ...t,
+                    isDone: action.isDone
+                } : t)]
             };
         }
         case 'CHANGE-TASK-TITLE': {
@@ -91,7 +74,6 @@ export const tasksReducer = (state: TasksStateType = InitialState, action: Actio
             };
         }
         case 'ADD-TODOLIST': {
-            debugger
             return {...state, [action.id]: []};
         }
         case 'REMOVE-TODOLIST': {

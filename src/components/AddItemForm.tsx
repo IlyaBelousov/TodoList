@@ -1,11 +1,12 @@
 import {IconButton, TextField} from '@material-ui/core';
 import {AddBox} from '@material-ui/icons';
-import React, {KeyboardEvent, ChangeEvent, useState} from 'react';
+import React, {KeyboardEvent, ChangeEvent, useState, useCallback} from 'react';
 
 type inputType = {
     callBack: (newTitle: string) => void
 }
-export const AddItemForm = (props: inputType) => {
+export const AddItemForm = React.memo((props: inputType) => {
+    console.log('add form');
     let [title, setTitle] = useState('');
     let [error, setError] = useState<boolean>(false);
 
@@ -13,7 +14,7 @@ export const AddItemForm = (props: inputType) => {
         setError(false);
         setTitle(event.currentTarget.value);
     };
-    const AddItem = () => {
+    const AddItem =() => {
         const trimmedTitle = title.trim();
         if (trimmedTitle) {
             props.callBack(trimmedTitle);
@@ -21,7 +22,7 @@ export const AddItemForm = (props: inputType) => {
         } else {
             setError(true);
         }
-    };
+    }
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             setError(false);
@@ -45,11 +46,13 @@ export const AddItemForm = (props: inputType) => {
                 helperText={error && 'Title is reqired'}
             />
             <IconButton
+                style={{margin: '1'}}
+                size={'medium'}
                 onBlur={offMode}
                 color={'primary'}
                 onClick={AddItem}>
-                <AddBox/>
+                <AddBox fontSize={'medium'}/>
             </IconButton>
         </div>
     );
-};
+});

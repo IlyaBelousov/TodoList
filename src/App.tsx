@@ -13,12 +13,11 @@ export type TodoListType = {
     title: string
     filter: filterValuesType
 }
-export type TasksStateType ={
-    [key:string]:Array<TaskType>
+type TasksStateType = {
+    [key: string]: Array<TaskType>
 }
 
 function App() {
-
     let todoListID_1 = v1();
     let todoListID_2 = v1();
     let [todoLists, setTodoLists] = useState<Array<TodoListType>>([
@@ -118,21 +117,14 @@ function App() {
         }));
     };
     let mapedTodoLists = todoLists.map(tl => {
-            let tasksForTodolist = allTasks[tl.id];
-            if (tl.filter === 'Active') {
-                tasksForTodolist = tasksForTodolist.filter(f => !f.isDone);
 
-            }
-            if (tl.filter === 'Completed') {
-                tasksForTodolist = tasksForTodolist.filter(f => f.isDone);
-            }
-            return <Grid  item key={tl.id}>
-                    <Paper
-                        elevation={5}
-                        style={{margin:'15px',padding:'15px',boxSizing:'border-box'}}><Todolist
+            return <Grid item key={tl.id}>
+                <Paper
+                    elevation={5}
+                    style={{margin: '15px', padding: '15px', boxSizing: 'border-box'}}><Todolist
                     id={tl.id}
                     title={tl.title}
-                    tasks={tasksForTodolist}
+                    tasks={allTasks}
                     addTask={addTask}
                     removeTasks={removeTasks}
                     changeFilter={changeFilter}
@@ -164,8 +156,9 @@ function App() {
             </AppBar>
 
             <Container fixed>
-                <Grid container>
-                    <AddItemForm callBack={AddTodoList}/>
+                <Grid alignContent={'center'}
+                    container>
+                        <AddItemForm callBack={AddTodoList}/>
                 </Grid>
                 <Grid container spacing={5}>
                     {mapedTodoLists}

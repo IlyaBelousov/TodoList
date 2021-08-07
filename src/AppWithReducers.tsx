@@ -88,21 +88,14 @@ function AppWithReducers() {
         dispatchToTodolistsReducer(ChangeTodolistTitleAC(title, todoListID));
     };
     let mapedTodoLists = todoLists.map(tl => {
-            let tasksForTodolist = allTasks[tl.id];
-            if (tl.filter === 'Active') {
-                tasksForTodolist = tasksForTodolist.filter(f => !f.isDone);
 
-            }
-            if (tl.filter === 'Completed') {
-                tasksForTodolist = tasksForTodolist.filter(f => f.isDone);
-            }
             return <Grid item key={tl.id}>
                 <Paper
                     elevation={5}
                     style={{margin: '15px', padding: '15px', boxSizing: 'border-box'}}><Todolist
                     id={tl.id}
                     title={tl.title}
-                    tasks={tasksForTodolist}
+                    tasks={allTasks}
                     addTask={addTask}
                     removeTasks={removeTasks}
                     changeFilter={changeFilter}
