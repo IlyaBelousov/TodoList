@@ -1,5 +1,5 @@
 import React from 'react';
-import {filterValuesType} from '../App';
+import {filterValuesType} from '../AppWithRedux';
 
 type PropsType={
     changeFilter:(key: filterValuesType, todolistId:string)=>void

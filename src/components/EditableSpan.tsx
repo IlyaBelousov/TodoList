@@ -10,15 +10,15 @@ export const EditableSpan = React.memo((props: EditableSpanType) => {
     console.log('Editaple span');
     const [editMode, setEditMode] = useState<boolean>(false);
     const [title, setTitle] = useState<string>(props.title);
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.currentTarget.value);
-    }
-    const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    },[])
+    const onKeyPressHandler = useCallback((event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             props.ChangeTitle(title);
             setEditMode(false);
         }
-    }
+    },[props.ChangeTitle])
     const onEditMode = () => setEditMode(true);
     const offEditMode = () => {
         props.ChangeTitle(title);
@@ -31,7 +31,8 @@ export const EditableSpan = React.memo((props: EditableSpanType) => {
                 onBlur={offEditMode}
                 value={title}
                 onChange={onChangeHandler}
-                onKeyPress={onKeyPressHandler}/>
+                onKeyPress={onKeyPressHandler}
+            />
 
             : <span onDoubleClick={onEditMode}>{props.title}</span>
     );
