@@ -25,11 +25,10 @@ export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
-export function AppWithRedux() {
+export const AppWithRedux = React.memo(() => {
     console.log('app');
     const dispatch = useDispatch();
-    const todolists = useSelector<AppRootStateType, Array<TodoListType>>(state => state.todoLists);
-    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks);
+    const todoLists = useSelector<AppRootStateType, Array<TodoListType>>(state => state.todoLists);
     const removeTodoList = useCallback((todolistId: string) => {
         dispatch(RemoveTodolistAC(todolistId));
     }, [dispatch]);
@@ -45,8 +44,8 @@ export function AppWithRedux() {
     const ChangeTaskTitle = useCallback((id: string, title: string, todolistId: string) => {
         dispatch(changeTaskTitleAC(id, title, todolistId));
     }, [dispatch]);
-    const ChangeTodolistTitle = useCallback(( todoListID: string,title: string) => {
-        dispatch(ChangeTodolistTitleAC(todoListID,title));
+    const ChangeTodolistTitle = useCallback((todoListID: string, title: string) => {
+        dispatch(ChangeTodolistTitleAC(todoListID, title));
     }, [dispatch]);
 
     const addTask = useCallback((newTitle: string, todolistId: string) => {
@@ -56,7 +55,7 @@ export function AppWithRedux() {
         const action = AddTodolistAC(newTitle);
         dispatch(action);
     }, [dispatch]);
-    let mapedTodoLists = todolists.map(tl => {
+    let mapedTodoLists = todoLists.map(tl => {
             return <Grid item key={tl.id}>
                 <Paper
                     elevation={3}
@@ -110,5 +109,5 @@ export function AppWithRedux() {
             </Container>
         </div>
     );
-}
+});
 
