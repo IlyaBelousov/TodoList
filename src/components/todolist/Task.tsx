@@ -2,12 +2,12 @@ import React, {ChangeEvent} from 'react';
 import {Checkbox, IconButton, ListItem} from '@material-ui/core';
 import {EditableSpan} from '../EditableSpan';
 import {Delete} from '@material-ui/icons';
-import {TaskType} from './Todolist';
+import {TaskType} from '../../api/task-api';
+
 
 
 export type TaskPropsType = {
     task: TaskType
-    addTask: (newTitle: string, todolistId: string) => void
     removeTasks: (id: string, todolistId: string) => void
     ChangeStatusTask: (id: string, isDone: boolean, todolistId: string) => void
     ChangeTaskTitle: (id: string, title: string, todolistId: string) => void
@@ -30,12 +30,12 @@ export const Task = React.memo((props: TaskPropsType) => {
         <ListItem divider={true}
                   alignItems={'center'}
                   key={props.task.id}>
-                            <span className={props.task.isDone ? 'isActive' : ''}>
+                            <span className={props.task.completed ? 'isActive' : ''}>
                                 <Checkbox
                                     size={'small'}
                                     color={'primary'}
                                     onChange={ChangeStatus}
-                                    checked={props.task.isDone}/>
+                                    checked={props.task.completed}/>
                                 <EditableSpan ChangeTitle={ChangeTitle}
                                               title={props.task.title}/>
                             </span>
