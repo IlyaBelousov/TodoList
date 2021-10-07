@@ -1,6 +1,7 @@
 import {filterValuesType, TodoListDomainType} from '../AppWithRedux';
 import {Dispatch} from 'redux';
 import {todolistAPI} from '../api/todolist-api';
+import {setAppErrorAC, setAppStatusAC} from "./app-reducer";
 
 
 export type TodolistActionsType =
@@ -33,7 +34,12 @@ export const TodolistReducer = (state: Array<TodoListDomainType> = InitialState,
                 : tl);
         }
         case 'FETCH-TODOLISTS': {
-            return action.todoLists;
+            return action.todoLists.map(tl=>{
+                return {
+                    ...tl,
+                    filter:'ALL'
+                }
+            });
         }
         default :
             return state;
@@ -63,36 +69,47 @@ export const createTodolistAction = (id: string, title: string, addedDate: strin
             addedDate,
             order,
             title,
-
         }
     } as const
 };
 export const fetchTodoLists = () => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     todolistAPI.getTodoLists()
         .then(response => dispatch(fetchTodoListsAction(response.data)));
+    dispatch(setAppStatusAC('idle'))
 };
 export const createTodoListThunk = (todoTitle: string) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     todolistAPI.createTodoList(todoTitle)
         .then(response => {
-            debugger
+            if(response.data.resultCode!==0){
+                dispatch(setAppErrorAC(response.data.messages[0]))
+            }
             const {id, addedDate, order, title} = response.data.data.item;
             dispatch(createTodolistAction(id,title,addedDate,order))
-        });
+            dispatch(setAppStatusAC('idle'))
+        })
+        .catch(error=>{
+            dispatch(setAppStatusAC('failed'))
+        })
 };
 export const deleteTodolistThunk=(todoListId:string)=>(dispatch: Dispatch)=>{
+    dispatch(setAppStatusAC('loading'))
     todolistAPI.deleteTodoList(todoListId)
         .then(response=>{
             if(response.data.resultCode===0){
                 dispatch(RemoveTodolistAC(todoListId))
+                dispatch(setAppStatusAC('idle'))
             }
         })
 }
 export const changeTodoListTitleThunk=(todoListId:string,title:string)=>(dispatch: Dispatch)=>{
-    debugger
+    dispatch(setAppStatusAC('loading'))
     todolistAPI.changeTodoListTitle(todoListId,title)
         .then(response=>{
             if(response.data.resultCode===0){
                 dispatch(ChangeTodolistTitleAC(todoListId,title))
+                dispatch(setAppStatusAC('idle'))
             }
         })
 }

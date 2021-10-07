@@ -2,16 +2,28 @@ import React, { useCallback, useEffect } from 'react';
 import './App.css';
 import { Todolist } from './components/todolist/Todolist';
 import { AddItemForm } from './components/AddItemForm';
-import { AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography } from '@material-ui/core';
+import {
+    AppBar,
+    Button,
+    Container,
+    Grid,
+    IconButton,
+    LinearProgress,
+    Paper,
+    Toolbar,
+    Typography
+} from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 import {
     ChangeFilterAC, changeTodoListTitleThunk, createTodoListThunk, deleteTodolistThunk, fetchTodoLists,
 } from './state/todolist-reducer';
-import {  changeTaskStatusAC, createTaskThunk, removeTaskAC } from './state/task-reducer';
+import {createTaskThunk} from './state/task-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppRootStateType } from './state/store';
 import { TodoListType } from './api/todolist-api';
 import { TaskType } from './api/task-api';
+import {RequestStatusType} from "./state/app-reducer";
+import {ErrorSnackBar} from "./components/ErrorSnackBar";
 
 
 
@@ -26,6 +38,7 @@ export type TasksStateType = {
 export const AppWithRedux = React.memo(() => {
     console.log('app');
     const todoLists = useSelector<AppRootStateType, Array<TodoListDomainType>>(state => state.todoLists);
+    const status = useSelector<AppRootStateType,RequestStatusType>(state=>state.app.status)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchTodoLists())
@@ -90,16 +103,17 @@ export const AppWithRedux = React.memo(() => {
                     </Typography>
                     <Button color={'inherit'}>Login</Button>
                 </Toolbar>
+                {status==='loading'&&<LinearProgress/>}
             </AppBar>
-
-            <Container maxWidth={'lg'}>
-                <Grid container>
+                <Grid container  justifyContent={'center'}>
                     <AddItemForm callBack={AddTodoList} />
                 </Grid>
+            <Container maxWidth={'lg'}>
                 <Grid container spacing={5}>
                     {mapedTodoLists}
                 </Grid>
             </Container>
+            <ErrorSnackBar/>
         </div>
     );
 });

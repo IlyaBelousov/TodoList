@@ -80,7 +80,7 @@ export const Todolist = React.memo((props: PropsType) => {
                 <Delete style={{ fontSize: 25, margin: 10 }} />
             </IconButton>
         </h3>
-        <AddItemForm callBack={addTaskItem} />
+        <AddItemForm variant={'standard'} callBack={addTaskItem} />
         <List dense={true}>
             {
                 tasksForTodolist && tasksForTodolist.map((m) => <Task

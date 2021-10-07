@@ -3,6 +3,7 @@ import { TasksStateType } from '../AppWithRedux';
 import { TodolistActionsType } from './todolist-reducer';
 import { taskAPI, TaskPriority, TaskStatuses, TaskType, updateTaskModelType } from '../api/task-api';
 import { Dispatch } from 'redux';
+import {setAppStatusAC} from "./app-reducer";
 
 
 export type TasksActionsType =
@@ -67,7 +68,10 @@ export const tasksReducer = (state: TasksStateType = InitialState, action: Tasks
             }
         }
         case 'CREATE-TODOLIST': {
-            return { [action.payload.id]: [] }
+            return {
+                [action.payload.id]: [],
+                ...state,
+            }
         }
         case 'REMOVE-TODOLIST': {
             let copyState = { ...state };
@@ -107,28 +111,35 @@ export const fetchTasksAC = (todolistId: string, tasks: Array<TaskType>) => {
 };
 
 export const fetchTasksThunk = (todolistId: string) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     taskAPI.getTasks(todolistId)
         .then(response => {
             dispatch(fetchTasksAC(todolistId, response.data.items))
+            dispatch(setAppStatusAC('idle'))
         })
 };
 export const createTaskThunk = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     taskAPI.createTask(todolistId, title)
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(addTaskAC(response.data.data.item.title, response.data.data.item.todoListId, response.data.data.item.id))
+                dispatch(setAppStatusAC('idle'))
             }
         })
 }
 export const deleteTaskThunk = (todoListId: string, taskId: string) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     taskAPI.deleteTask(todoListId, taskId)
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(removeTaskAC(taskId, todoListId))
+                dispatch(setAppStatusAC('idle'))
             }
         })
 }
 export const updateTaskTitleThunk = (todoListId: string, taskId: string, title: string) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+    dispatch(setAppStatusAC('loading'))
     const state = getState();
     const task = state.tasks[todoListId].find(t => t.id === taskId)
     if (!task) {
@@ -145,9 +156,11 @@ export const updateTaskTitleThunk = (todoListId: string, taskId: string, title: 
         status: task.status,
         title
     }
+    dispatch(setAppStatusAC('loading'))
     taskAPI.updateTaskTitle(todoListId, taskId, model)
         .then(response => {
                 dispatch(changeTaskTitleAC(taskId,todoListId,title))
+            dispatch(setAppStatusAC('idle'))
         })
 }
 
@@ -168,9 +181,11 @@ export const updateTaskStatusThunk = (todoListId: string, taskId: string, status
         status,
         title:task.title
     }
+    dispatch(setAppStatusAC('loading'))
     taskAPI.updateTaskStatus(todoListId, taskId, model)
         .then(response => {
                 dispatch(changeTaskStatusAC(taskId,status,todoListId))
                 console.log(response.data.data)
+            dispatch(setAppStatusAC('idle'))
         })
 }

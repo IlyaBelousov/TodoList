@@ -4,6 +4,7 @@ import React, {KeyboardEvent, ChangeEvent, useState} from 'react';
 
 type inputType = {
     callBack: (newTitle: string) => void
+    variant?: |'standard' | 'filled' | 'outlined' | undefined
 }
 export const AddItemForm = React.memo((props: inputType) => {
     console.log('add form');
@@ -37,13 +38,13 @@ export const AddItemForm = React.memo((props: inputType) => {
             <TextField
                 size={'small'}
                 onBlur={offMode}
-                variant={'outlined'}
+                variant={props.variant?props.variant:'outlined'}
                 value={title}
                 onChange={onChangeHandler}
                 onKeyPress={onKeyPressHandler}
                 label={'Title'}
                 error={error}
-                helperText={error && 'Title is reqired'}
+                helperText={error && 'Title is required'}
             />
             <IconButton
                 style={{margin: '1'}}
