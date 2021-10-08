@@ -30,6 +30,7 @@ import {ErrorSnackBar} from "./components/ErrorSnackBar";
 export type filterValuesType = 'ALL' | 'Active' | 'Completed'
 export type TodoListDomainType = TodoListType & {
     filter: filterValuesType
+    entityStatus:RequestStatusType
 }
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -75,6 +76,7 @@ export const AppWithRedux = React.memo(() => {
                     boxSizing: 'border-box'
                 }}>
                 <Todolist
+                    entityStatus={tl.entityStatus}
                     id={tl.id}
                     title={tl.title}
                     addTask={addTask}

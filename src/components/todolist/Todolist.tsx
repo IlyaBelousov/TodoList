@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useCallback, useEffect } from 'react';
-import { filterValuesType, TasksStateType } from '../../AppWithRedux';
+import {filterValuesType, TasksStateType, TodoListDomainType} from '../../AppWithRedux';
 import { AddItemForm } from '../AddItemForm';
 import { EditableSpan } from '../EditableSpan';
 import { Box, Button, Checkbox, IconButton, List, ListItem } from '@material-ui/core';
@@ -10,12 +10,14 @@ import { TaskStatuses, TaskType } from '../../api/task-api';
 import { deleteTaskThunk, fetchTasksThunk } from '../../state/task-reducer';
 import { Task } from './Task'
 import { updateTaskTitleThunk, updateTaskStatusThunk } from '../../state/task-reducer'
+import {RequestStatusType} from "../../state/app-reducer";
 
 
 
 
 
 type PropsType = {
+    entityStatus:RequestStatusType
     id: string
     title: string
     addTask: (newTitle: string, todolistId: string) => void
@@ -75,12 +77,14 @@ export const Todolist = React.memo((props: PropsType) => {
         <h3 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <EditableSpan
                 ChangeTitle={ChangeTodolistTitle} title={props.title} />
-            <IconButton size={'small'}
+            <IconButton
+                disabled={props.entityStatus==='loading'}
+                size={'small'}
                 onClick={RemoveTodoList}>
                 <Delete style={{ fontSize: 25, margin: 10 }} />
             </IconButton>
         </h3>
-        <AddItemForm variant={'standard'} callBack={addTaskItem} />
+        <AddItemForm entityStatus={props.entityStatus} variant={'standard'} callBack={addTaskItem} />
         <List dense={true}>
             {
                 tasksForTodolist && tasksForTodolist.map((m) => <Task

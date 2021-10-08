@@ -1,10 +1,12 @@
 import {IconButton, TextField} from '@material-ui/core';
 import {AddBox} from '@material-ui/icons';
 import React, {KeyboardEvent, ChangeEvent, useState} from 'react';
+import {RequestStatusType} from "../state/app-reducer";
 
 type inputType = {
     callBack: (newTitle: string) => void
     variant?: |'standard' | 'filled' | 'outlined' | undefined
+    entityStatus?:RequestStatusType
 }
 export const AddItemForm = React.memo((props: inputType) => {
     console.log('add form');
@@ -36,6 +38,7 @@ export const AddItemForm = React.memo((props: inputType) => {
     return (
         <div>
             <TextField
+                disabled={props.entityStatus==='loading'}
                 size={'small'}
                 onBlur={offMode}
                 variant={props.variant?props.variant:'outlined'}
@@ -47,6 +50,7 @@ export const AddItemForm = React.memo((props: inputType) => {
                 helperText={error && 'Title is required'}
             />
             <IconButton
+                disabled={props.entityStatus==='loading'}
                 style={{margin: '1'}}
                 size={'medium'}
                 onBlur={offMode}
