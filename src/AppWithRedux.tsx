@@ -39,6 +39,7 @@ export const AppWithRedux = React.memo(() => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
     const dispatch=useDispatch()
     const logOutHandler=useCallback(()=>{
+        if(!isLoggedIn)return <Redirect to={'/Todolist/login'}/>
         dispatch(LogOutTC())
     },[isLoggedIn])
 
